@@ -41,7 +41,7 @@ class Shape extends React.Component<Props, State> {
     const { config, active } = this.props
     return (
       <div
-        className={["iconfont ",active ?'active' :'' ].join('')}
+        className={['shape ', active ?'active' :'' ].join('')}
         style={this.getShapeStyle(config.style)} 
         onMouseDown={this.handleMouseDownOnShape}
       >

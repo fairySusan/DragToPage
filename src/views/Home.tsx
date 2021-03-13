@@ -22,8 +22,8 @@ class Home extends React.Component<Props> {
     e.stopPropagation()
     const i: number = parseInt(e.dataTransfer.getData('index'))
     const component = deepCopy(componentList[i])
-    component.style.top = e.clientX
-    component.style.left = e.clientY
+    component.style.top = e.nativeEvent.offsetY
+    component.style.left = e.nativeEvent.offsetX
     component.id = generateID()
     this.props.addComponent(component)
   }
@@ -43,7 +43,11 @@ class Home extends React.Component<Props> {
           </section>
           {/* 中间画布*/}
           <section className="center">
-            <div className="content" onDrop={this.handleDrop} onDragOver={this.handleDragOver}>
+            <div
+              className="content"
+              onDrop={this.handleDrop}
+              onDragOver={this.handleDragOver}
+            >
               <Editor/>
             </div>
           </section>
