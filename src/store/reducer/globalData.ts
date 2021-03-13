@@ -1,6 +1,11 @@
-import { globalDataAction, canvasStyleInterface, componentDataAction } from '../Type'
 import { componentTy } from './stateType'
-import { ChangeCanvasStyle, AddComponent } from '../constant'
+import { ChangeCanvasStyle, AddComponent,  SetCurrentComponent } from '../constant'
+import { 
+  globalDataAction,
+  canvasStyleInterface,
+  componentDataAction,
+  currentComponentAction
+} from '../Type'
 
 export const globalData = (
   state = {
@@ -24,6 +29,17 @@ export const componentsData = (state: componentTy[] = [], action:componentDataAc
   }
 }
 
+export const currentComponent = (state: componentTy | {id: -1} = {id: -1}, action: currentComponentAction) => {
+  switch (action.type) {
+    case SetCurrentComponent:
+      return action.component
+    default:
+      return state
+  }
+}
+
 export type GlobalDataReducer = ReturnType<typeof globalData>
 
 export type ComponentsDataReducer = ReturnType<typeof componentsData>
+
+export type CurrentComponentReducer =  ReturnType<typeof currentComponent>

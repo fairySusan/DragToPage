@@ -1,4 +1,5 @@
-import {GlobalDataReducer, ComponentsDataReducer} from './reducer/globalData'
+import { DefaultRootState } from 'react-redux'
+import {GlobalDataReducer, ComponentsDataReducer, CurrentComponentReducer} from './reducer/globalData'
 import { componentTy } from './reducer/stateType'
 export interface canvasStyleInterface {
   width: string;
@@ -16,8 +17,11 @@ export interface componentDataAction {
   component: componentTy
 }
 
+export interface currentComponentAction extends componentDataAction {}
+
 
 export interface Reducers {
   globalData: GlobalDataReducer,
-  componentsData: ComponentsDataReducer
+  componentsData: ComponentsDataReducer,
+  currentComponent: CurrentComponentReducer
 }

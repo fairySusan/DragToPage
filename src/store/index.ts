@@ -1,10 +1,11 @@
 import {combineReducers, createStore} from 'redux'
-import {globalData, componentsData} from './reducer/globalData'
+import {globalData, componentsData, currentComponent} from './reducer/globalData'
 import {Reducers} from './Type'
 
 const rootReducer = combineReducers<Reducers>({
   globalData,
-  componentsData
+  componentsData, 
+  currentComponent
 });
 
 export const store = createStore(rootReducer)
