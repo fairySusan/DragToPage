@@ -65,7 +65,6 @@ class Shape extends React.Component<Props, State> {
 
   render () {
     const { component, active } = this.props
-    console.log('renbbbb')
     return (
       <div
         className={['shape ', active ?'active' :'' ].join('')}
