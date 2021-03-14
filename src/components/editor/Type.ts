@@ -1,17 +1,18 @@
 import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch } from 'redux'
 import { AppState } from 'src/store'
-import { setCurrentComponent } from 'src/store/action/componentAction'
+import { setCurrentComponent, updateComponent } from 'src/store/action/componentAction'
 import { componentTy } from 'src/store/reducer/stateType'
 
 const mapState = (state: AppState) => ({
   canvasStyle: state.globalData,
-  componentData: state.componentsData,
+  componentsData: state.componentsData,
   currentComponent: state.currentComponent
 })
 
 const mapDispatch = (dispatch: Dispatch) => ({
-  setCurrentComponent: (component: componentTy) => {dispatch(setCurrentComponent(component))}
+  setCurrentComponent: (component: componentTy) => {dispatch(setCurrentComponent(component))},
+  UpdateComponent: (component: componentTy) => {dispatch(updateComponent(component))},
 })
 
 export const connector = connect(mapState, mapDispatch)

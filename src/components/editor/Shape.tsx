@@ -1,10 +1,10 @@
-import React from'react'
+import React, {MouseEvent} from'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { componentTy } from 'src/store/reducer/stateType'
 import { PropsFromRedux, connector } from './Type'
 
 interface Props extends PropsFromRedux {
-  config: componentTy,
+  component: componentTy,
   active: boolean,
   children: JSX.Element
 }
@@ -32,17 +32,44 @@ class Shape extends React.Component<Props, State> {
     return result
   }
 
-  handleMouseDownOnShape = () => {
-    this.props.setCurrentComponent(this.props.config)
+  handleMouseDownOnShape = (e: React.MouseEvent) => {
+    const { component } = this.props
+    const { style } = component
+    this.props.setCurrentComponent(component)
+
+    const startY = e.clientY
+    const startX = e.clientX
+
+    const startTop = style.top
+    const startLeft = style.left
+
+    const move = (ev: any) => { // 这个地方我不知道设置什么类型
+      const curX = ev.clientX
+      const curY = ev.clientY
+
+      style.top = curY - startY + startTop
+      style.left = curX - startX + startLeft
+
+      this.props.UpdateComponent(component)
+    }
+
+    const up = () => {
+      document.removeEventListener('mousemove', move)
+      document.removeEventListener('mouseup', up)
+    }
+
+    document.addEventListener('mousemove', move)
+    document.addEventListener('mouseup', up)
   }
 
 
   render () {
-    const { config, active } = this.props
+    const { component, active } = this.props
+    console.log('renbbbb')
     return (
       <div
         className={['shape ', active ?'active' :'' ].join('')}
-        style={this.getShapeStyle(config.style)} 
+        style={this.getShapeStyle(component.style)}
         onMouseDown={this.handleMouseDownOnShape}
       >
         {this.props.children}
