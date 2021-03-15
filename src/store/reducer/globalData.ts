@@ -4,7 +4,8 @@ import {
   AddComponent,
   SetCurrentComponent,
   SetCurrentComponentStyle,
-  UpdateComponent
+  UpdateComponent,
+  ClearAllComponent
 } from '../constant'
 import { 
   globalDataAction,
@@ -29,11 +30,16 @@ export const globalData = (
 export const componentsData = (state: componentTy[] = [], action:componentDataAction) => {
   switch (action.type) {
     case AddComponent: 
-      return [action.component,...state]
-    case UpdateComponent:
-      const i =state.findIndex((item) => item.id === action.component.id)
-      state[i] = action.component
+      if (action.component) {
+        return [action.component,...state]
+      }
       return [...state]
+    case UpdateComponent:
+      const i =state.findIndex((item) => item.id === (action.component as componentTy).id)
+      state[i] = action.component as componentTy
+      return [...state]
+    case ClearAllComponent:
+      return []
     default:
       return state
   }
@@ -44,7 +50,6 @@ export const currentComponent = (state: componentTy | {id: -1} = {id: -1}, actio
     case SetCurrentComponent:
       return action.component
     case SetCurrentComponentStyle:
-      console.log('update')
       return { ...action.component }
     default:
       return state

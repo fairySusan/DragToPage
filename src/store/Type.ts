@@ -14,10 +14,13 @@ export interface globalDataAction {
 
 export interface componentDataAction {
   type: string;
-  component: componentTy
+  component?: componentTy
 }
 
-export interface currentComponentAction extends componentDataAction {}
+export interface currentComponentAction {
+  type: string;
+  component: componentTy
+}
 
 
 export interface Reducers {

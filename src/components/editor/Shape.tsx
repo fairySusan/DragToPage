@@ -165,6 +165,7 @@ class Shape extends React.Component<Props, State> {
         {
           active && pointList.map((dot, i) => (
             <div
+              key="i"
               className="shape-point"
               style={this.getPointStyle(dot)}
               onMouseDown={(e: React.MouseEvent) => this.handleMouseDownOnPoint(dot, e)}

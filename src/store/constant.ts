@@ -7,3 +7,5 @@ export const SetCurrentComponent = 'SetCurrentComponent'
 export const SetCurrentComponentStyle = 'SetCurrentComponentStyle'
 
 export const UpdateComponent = 'UpdateComponent'
+
+export const ClearAllComponent = 'ClearAllComponent'
