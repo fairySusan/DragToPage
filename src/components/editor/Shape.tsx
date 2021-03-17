@@ -1,5 +1,6 @@
 import React, {MouseEvent} from'react'
 import { connect, ConnectedProps } from 'react-redux'
+import { RedoOutlined } from '@ant-design/icons'
 import { componentTy } from 'src/store/reducer/stateType'
 import { PropsFromRedux, connector } from './Type'
 
@@ -162,6 +163,7 @@ class Shape extends React.Component<Props, State> {
         style={this.getShapeStyle(component.style)}
         onMouseDown={this.handleMouseDownOnShape}
       >
+        <RedoOutlined />
         {
           active && pointList.map((dot, i) => (
             <div
