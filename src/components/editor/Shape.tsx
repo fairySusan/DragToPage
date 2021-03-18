@@ -1,5 +1,4 @@
-import React, {MouseEvent} from'react'
-import { connect, ConnectedProps } from 'react-redux'
+import React from'react'
 import { RedoOutlined } from '@ant-design/icons'
 import { componentTy } from 'src/store/reducer/stateType'
 import { PropsFromRedux, connector } from './Type'
@@ -37,7 +36,7 @@ class Shape extends React.Component<Props, State> {
   getShapeStyle = (style: any) => {
     const result: any = {};
     ['width', 'height', 'top', 'left', 'rotate'].forEach(attr => {
-        if (attr != 'rotate') {
+        if (attr !== 'rotate') {
             result[attr] = style[attr] + 'px'
         } else {
             result.transform = 'rotate(' + style[attr] + 'deg)'
@@ -153,6 +152,47 @@ class Shape extends React.Component<Props, State> {
     document.addEventListener('mouseup', up)
   }
 
+  // 处理旋转事件
+  handleRotate = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    // 初始坐标和初始角度
+    const { component } = this.props
+    const { style } = component
+    const startRotate =  style.rotate
+    const startX = e.clientX
+    const startY = e.clientY
+
+    // 获取元素中心点相对于视窗？？位置
+    const el: HTMLElement | null = document.getElementById('shape-id')
+    const react = (el as HTMLElement).getBoundingClientRect()
+    const centerX = (react.right + react.x) / 2
+    const centerY = (react.bottom + react.y) / 2
+
+     // 旋转前的角度(没懂)
+     const rotateDegreeBefore = Math.atan2(startY - centerY, startX - centerX) / (Math.PI / 180)
+
+    const move = (ev: any) => {
+      const currX = ev.clientX
+      const currY = ev.clientY
+
+      // 旋转后的角度
+      const rotateDegreeAfter = Math.atan2(currY - centerY, currX - centerX) / (Math.PI / 180)
+
+      // 获取旋转的角度值
+      style.rotate = startRotate + rotateDegreeAfter - rotateDegreeBefore
+
+      this.props.UpdateComponent(component)
+    }
+
+    const up = () => {
+      document.removeEventListener('mousemove', move)
+      document.removeEventListener('mouseup', up)
+    }
+
+    document.addEventListener('mousemove', move)
+    document.addEventListener('mouseup', up)
+  }
+
 
   render () {
     const { component, active } = this.props
@@ -162,8 +202,12 @@ class Shape extends React.Component<Props, State> {
         className={['shape ', active ?'active' :'' ].join('')}
         style={this.getShapeStyle(component.style)}
         onMouseDown={this.handleMouseDownOnShape}
+        id="shape-id"
       >
-        <RedoOutlined />
+        <RedoOutlined
+          className="icon-xiangyouxuanzhuan"
+          onMouseDown={this.handleRotate}
+        />
         {
           active && pointList.map((dot, i) => (
             <div
