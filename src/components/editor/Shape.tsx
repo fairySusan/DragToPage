@@ -204,10 +204,13 @@ class Shape extends React.Component<Props, State> {
         onMouseDown={this.handleMouseDownOnShape}
         id="shape-id"
       >
-        <RedoOutlined
-          className="icon-xiangyouxuanzhuan"
-          onMouseDown={this.handleRotate}
-        />
+        {
+          active &&
+          <RedoOutlined
+            className="icon-xiangyouxuanzhuan"
+            onMouseDown={this.handleRotate}
+          />
+        }
         {
           active && pointList.map((dot, i) => (
             <div
