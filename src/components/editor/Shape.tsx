@@ -175,7 +175,7 @@ class Shape extends React.Component<Props, State> {
       const currX = ev.clientX
       const currY = ev.clientY
 
-      // 旋转后的角度
+      // 旋转后的角度，Math.atan2a返回的是弧度，需要转化为角度
       const rotateDegreeAfter = Math.atan2(currY - centerY, currX - centerX) / (Math.PI / 180)
 
       // 获取旋转的角度值
@@ -214,7 +214,7 @@ class Shape extends React.Component<Props, State> {
         {
           active && pointList.map((dot, i) => (
             <div
-              key="i"
+              key={i}
               className="shape-point"
               style={this.getPointStyle(dot)}
               onMouseDown={(e: React.MouseEvent) => this.handleMouseDownOnPoint(dot, e)}

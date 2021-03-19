@@ -9,3 +9,7 @@ export const SetCurrentComponentStyle = 'SetCurrentComponentStyle'
 export const UpdateComponent = 'UpdateComponent'
 
 export const ClearAllComponent = 'ClearAllComponent'
+
+export const ShowContextMenu = 'ShowContextMenu'
+
+export const HideContextMenu = 'HideContextMenu'

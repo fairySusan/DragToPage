@@ -1,5 +1,6 @@
 import { DefaultRootState } from 'react-redux'
 import {GlobalDataReducer, ComponentsDataReducer, CurrentComponentReducer} from './reducer/globalData'
+import {contextMenuDisplayReducer} from './reducer/contextMenu'
 import { componentTy } from './reducer/stateType'
 export interface canvasStyleInterface {
   width: string;
@@ -22,9 +23,21 @@ export interface currentComponentAction {
   component: componentTy
 }
 
+export interface showContextMenuAction {
+  type: string;
+  position: ContextMenuPosition
+}
+
+export interface ContextMenuPosition {
+  left: number;
+  top: number;
+}
+
+
 
 export interface Reducers {
   globalData: GlobalDataReducer,
   componentsData: ComponentsDataReducer,
-  currentComponent: CurrentComponentReducer
+  currentComponent: CurrentComponentReducer,
+  contextMenuDisplay: contextMenuDisplayReducer
 }

@@ -6,16 +6,44 @@ import { changeStyleWithScale } from 'src/utils/tanslate'
 import { componentFactory } from 'src/components/componentFactory'
 import GridLine from './GridLine'
 import Shape from './Shape'
+import ContextMenu from './ContextMenu'
 
 interface Props extends PropsFromRedux {
 }
 
 class Editor extends React.Component<Props> {
 
+  handleContextMenu = (e: any) => {
+    e.stopPropagation()
+    e.preventDefault()
+    // 计算菜单相对于编辑器的位移
+    let target = e.target
+    let top = e.offsetY // offsetY坐标系是target的左上角的坐标系，offsetY是相对与点击目标的
+    let left = e.offsetX
+    // 如果右键的是网格区域，那么target取编辑器dom
+    while (target instanceof SVGElement) {
+      target = target.parentNode
+    }
+
+    // 如果点击的是组件，获取 相对于编辑器的鼠标的点击位置 = 组件左边距离编辑器的距离 + offsetX
+    while (!target.className.includes('editor')) {
+      left += target.offsetLeft
+      top += target.offsetTop
+      target = target.parentNode
+    }
+    console.log(top, left, e)
+    this.props.ShowContextMenu({ top, left})
+  }
+
   render () {
-    const { canvasStyle, componentsData, currentComponent } = this.props
+    const { canvasStyle, componentsData, currentComponent, contextMenu } = this.props
     return (
-      <div className="editor" id="editor" style={{width: changeStyleWithScale(canvasStyle.width) + 'px', height: changeStyleWithScale(canvasStyle.height) + 'px'}}>
+      <div
+        className="editor"
+        id="editor"
+        style={{width: changeStyleWithScale(canvasStyle.width) + 'px', height: changeStyleWithScale(canvasStyle.height) + 'px'}}
+        onContextMenu={this.handleContextMenu}
+        >
         <GridLine/>
         {
           componentsData.length > 0 && componentsData.map((item, i) => {
@@ -30,6 +58,10 @@ class Editor extends React.Component<Props> {
               </Shape>
             )
           })
+        }
+
+        {
+          contextMenu.show && <ContextMenu/>
         }
       </div>
     )
