@@ -5,7 +5,8 @@ import {
   SetCurrentComponent,
   SetCurrentComponentStyle,
   UpdateComponent,
-  ClearAllComponent
+  ClearAllComponent,
+  DeleteComponent
 } from '../constant'
 import { 
   globalDataAction,
@@ -40,6 +41,10 @@ export const componentsData = (state: componentTy[] = [], action:componentDataAc
       return [...state]
     case ClearAllComponent:
       return []
+    case DeleteComponent:
+      const j =state.findIndex((item) => item.id === (action.component as componentTy).id)
+      state.splice(j, 1)
+      return [...state]
     default:
       return state
   }

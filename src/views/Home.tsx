@@ -7,12 +7,11 @@ import componentList from 'src/custom-components/component-list'
 import { componentTy } from 'src/store/reducer/stateType'
 import { deepCopy } from 'src/utils/util'
 import generateID from 'src/utils/generateID'
-import { connector } from './Type'
+import { connector, PropsFromRedux } from './Type'
 
 const { TabPane } = Tabs;
 
-interface Props {
-  addComponent: (component: componentTy) => void
+interface Props extends PropsFromRedux {
 }
 
 class Home extends React.Component<Props> {
@@ -32,6 +31,12 @@ class Home extends React.Component<Props> {
     e.preventDefault()
   }
 
+  deSelectCurrComponent = (e: React.MouseEvent) => {
+    if (e.button !== 2) {
+      this.props.HideContextMenu()
+    }
+  }
+
   render () {
     return (
       <div className="home">
@@ -47,6 +52,7 @@ class Home extends React.Component<Props> {
               className="content"
               onDrop={this.handleDrop}
               onDragOver={this.handleDragOver}
+              onClick={this.deSelectCurrComponent}
             >
               <Editor/>
             </div>

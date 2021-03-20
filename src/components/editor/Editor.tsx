@@ -1,7 +1,5 @@
 import React from 'react';
 import { connector, PropsFromRedux } from './Type'
-import { canvasStyleInterface } from 'src/store/Type'
-import { componentTy } from 'src/store/reducer/stateType'
 import { changeStyleWithScale } from 'src/utils/tanslate'
 import { componentFactory } from 'src/components/componentFactory'
 import GridLine from './GridLine'
@@ -18,11 +16,11 @@ class Editor extends React.Component<Props> {
     e.preventDefault()
     // 计算菜单相对于编辑器的位移
     let target = e.target
-    let top = e.offsetY // offsetY坐标系是target的左上角的坐标系，offsetY是相对与点击目标的
-    let left = e.offsetX
+    let top = e.nativeEvent.offsetY // offsetY坐标系是target的左上角的坐标系，offsetY是相对与点击目标的
+    let left = e.nativeEvent.offsetX
     // 如果右键的是网格区域，那么target取编辑器dom
     while (target instanceof SVGElement) {
-      target = target.parentNode
+      target = target.parentNode as (Node & ParentNode)
     }
 
     // 如果点击的是组件，获取 相对于编辑器的鼠标的点击位置 = 组件左边距离编辑器的距离 + offsetX
@@ -31,7 +29,6 @@ class Editor extends React.Component<Props> {
       top += target.offsetTop
       target = target.parentNode
     }
-    console.log(top, left, e)
     this.props.ShowContextMenu({ top, left})
   }
 

@@ -1,4 +1,4 @@
-import React from'react'
+import React, { MouseEventHandler } from'react'
 import { RedoOutlined } from '@ant-design/icons'
 import { componentTy } from 'src/store/reducer/stateType'
 import { PropsFromRedux, connector } from './Type'
@@ -193,6 +193,12 @@ class Shape extends React.Component<Props, State> {
     document.addEventListener('mouseup', up)
   }
 
+  onHideContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    this.props.HideContextMenu()
+  }
+
 
   render () {
     const { component, active } = this.props
@@ -202,6 +208,7 @@ class Shape extends React.Component<Props, State> {
         className={['shape ', active ?'active' :'' ].join('')}
         style={this.getShapeStyle(component.style)}
         onMouseDown={this.handleMouseDownOnShape}
+        onClick={this.onHideContextMenu}
         id="shape-id"
       >
         {

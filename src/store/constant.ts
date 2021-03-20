@@ -13,3 +13,5 @@ export const ClearAllComponent = 'ClearAllComponent'
 export const ShowContextMenu = 'ShowContextMenu'
 
 export const HideContextMenu = 'HideContextMenu'
+
+export const DeleteComponent = 'DeleteComponent'

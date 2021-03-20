@@ -25,7 +25,7 @@ export interface currentComponentAction {
 
 export interface showContextMenuAction {
   type: string;
-  position: ContextMenuPosition
+  position?: ContextMenuPosition
 }
 
 export interface ContextMenuPosition {
