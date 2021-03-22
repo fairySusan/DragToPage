@@ -25,6 +25,8 @@ class Home extends React.Component<Props> {
     component.style.left = e.nativeEvent.offsetX
     component.id = generateID()
     this.props.addComponent(component)
+    // 记录快照
+    this.props.RecordSnapshot()
   }
 
   handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {

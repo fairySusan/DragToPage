@@ -1,6 +1,7 @@
 import { connect, ConnectedProps } from 'react-redux'
-import { Dispatch } from 'redux'
+import { Action, Dispatch } from 'redux'
 import { AppState } from 'src/store'
+import { ThunkDispatch } from 'redux-thunk'
 import { canvasStyleInterface } from 'src/store/Type'
 import { changeCanvasStyleAction } from 'src/store/action/canvasAction'
 import { clearAllComponent } from 'src/store/action/componentAction'
@@ -10,11 +11,13 @@ const mapState = (state: AppState) => ({
   canvasStyle: state.globalData
 })
 
-const mapDispatch = (dispatch: Dispatch) => ({
-  changeCanvasStyle: (canvasStyle: canvasStyleInterface) => {dispatch(changeCanvasStyleAction(canvasStyle))},
-  clearAllComponent: () => {dispatch(clearAllComponent())},
-  Redo: () => {dispatch(redo())},
-  Undo: () => {dispatch(undo())}
+type ThunkDispatchTy = ThunkDispatch<AppState, void, Action>
+
+const mapDispatch = (dispatch: Dispatch | ThunkDispatchTy) => ({
+  changeCanvasStyle: (canvasStyle: canvasStyleInterface) => {(dispatch as Dispatch)(changeCanvasStyleAction(canvasStyle))},
+  clearAllComponent: () => {(dispatch as Dispatch)(clearAllComponent())},
+  Redo: () => {(dispatch as ThunkDispatchTy)(redo())},
+  Undo: () => {(dispatch as ThunkDispatchTy)(undo())}
 })
 
 export const connector = connect(mapState, mapDispatch)

@@ -1,4 +1,5 @@
-import {combineReducers, createStore} from 'redux'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import {globalData, componentsData, currentComponent} from './reducer/globalData'
 import {contextMenuDisplay} from './reducer/contextMenu'
 import {snapshotData } from './reducer/snapshotData'
@@ -12,7 +13,7 @@ const rootReducer = combineReducers<Reducers>({
   snapshotData
 });
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 
 export type AppState = ReturnType<typeof rootReducer>

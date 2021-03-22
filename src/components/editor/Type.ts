@@ -1,10 +1,11 @@
 import { connect, ConnectedProps } from 'react-redux'
-import { Dispatch } from 'redux'
+import { Dispatch, Action} from 'redux'
 import { AppState } from 'src/store'
+import { ThunkDispatch } from 'redux-thunk'
 import { setCurrentComponent, updateComponent, addComponent, deleteComponent } from 'src/store/action/componentAction'
 import { showContextMenuAction, hideContextMenuAction } from 'src/store/action/contextMenuAction'
 import { componentTy } from 'src/store/reducer/stateType'
-import { recordSnapshot, redo, undo } from 'src/store/action/snapshotAction'
+import { recordSnapshot } from 'src/store/action/snapshotAction'
 
 const mapState = (state: AppState) => ({
   canvasStyle: state.globalData,
@@ -13,14 +14,16 @@ const mapState = (state: AppState) => ({
   contextMenu: state.contextMenuDisplay
 })
 
-const mapDispatch = (dispatch: Dispatch) => ({
-  setCurrentComponent: (component: componentTy) => {dispatch(setCurrentComponent(component))},
-  UpdateComponent: (component: componentTy) => {dispatch(updateComponent(component))},
-  AddComponent: (component: componentTy) => {dispatch(addComponent(component))},
-  DeleteComponent: (component: componentTy) => {dispatch(deleteComponent(component))},
-  ShowContextMenu: (position: { left: number; top: number}) => {dispatch(showContextMenuAction(position))},
-  HideContextMenu: () => { dispatch(hideContextMenuAction())},
-  RecordSnapshot: () => {dispatch(recordSnapshot())}
+type ThunkDispatchTy = ThunkDispatch<AppState, void, Action>
+
+const mapDispatch = (dispatch: Dispatch | ThunkDispatchTy) => ({
+  setCurrentComponent: (component: componentTy) => {(dispatch as Dispatch)(setCurrentComponent(component))},
+  UpdateComponent: (component: componentTy) => {(dispatch as Dispatch)(updateComponent(component))},
+  AddComponent: (component: componentTy) => {(dispatch as Dispatch)(addComponent(component))},
+  DeleteComponent: (component: componentTy) => {(dispatch as Dispatch)(deleteComponent(component))},
+  ShowContextMenu: (position: { left: number; top: number}) => {(dispatch as Dispatch)(showContextMenuAction(position))},
+  HideContextMenu: () => {(dispatch as Dispatch)(hideContextMenuAction())},
+  RecordSnapshot: () => {(dispatch as ThunkDispatchTy)(recordSnapshot())}
 
 })
 

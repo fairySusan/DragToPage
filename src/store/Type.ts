@@ -33,8 +33,7 @@ export interface setAllComponentAction {
 
 export interface RecordSnapshotAction {
   type: string;
-  snapshotIndex: number;
-  components: componentTy[]
+  components?: componentTy[]
 }
 
 export type componentDataActionTy = componentDataAction | componentDataClearAction | setAllComponentAction

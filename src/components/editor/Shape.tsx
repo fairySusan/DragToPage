@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from'react'
+import React from 'react'
 import { RedoOutlined } from '@ant-design/icons'
 import { componentTy } from 'src/store/reducer/stateType'
 import { PropsFromRedux, connector } from './Type'
@@ -100,11 +100,11 @@ class Shape extends React.Component<Props, State> {
       style.left = curX - startX + startLeft
 
       this.props.UpdateComponent(component)
-      // 记录快照
-      this.props.RecordSnapshot()
     }
 
     const up = () => {
+      // 记录快照
+      this.props.RecordSnapshot()
       document.removeEventListener('mousemove', move)
       document.removeEventListener('mouseup', up)
     }

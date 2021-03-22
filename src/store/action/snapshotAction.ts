@@ -1,14 +1,33 @@
 import { RecordSnapshot, Undo, Redo } from '../constant'
-import { componentTy } from '../reducer/stateType'
+import { Dispatch } from 'redux'
+import { setAllComponents } from '../action/componentAction'
+import { deepCopy } from 'src/utils/util'
+import { AppState } from '..'
 
-export const recordSnapshot = (components: componentTy[], snapshotIndex: number) => {
-  return { type: RecordSnapshot, components, snapshotIndex }
+
+export const recordSnapshot = () => {
+  return (dispatch: Dispatch, getState: () => AppState) => {
+    const { componentsData } = getState()
+    dispatch({ type: RecordSnapshot, components: componentsData })
+  }
 }
 
 export const undo = () => {
-  return { type: Undo}
+  return (dispatch: Dispatch, getState: () => AppState) => {
+    const { snapshotData } = getState()
+    if (snapshotData.snapshotIndex > 0) {
+      dispatch(setAllComponents(deepCopy(snapshotData.components[snapshotData.snapshotIndex - 1])))
+      dispatch({ type: Undo })
+    }
+  }
 }
 
 export const redo = () => {
-  return { type: Redo}
+  return (dispatch: Dispatch, getState: () => AppState) => {
+    const { snapshotData } = getState()
+    if (snapshotData.snapshotIndex < snapshotData.components.length - 1) {
+      dispatch(setAllComponents(deepCopy(snapshotData.components[snapshotData.snapshotIndex + 1])))
+      dispatch({ type: Redo })
+    }
+  }
 }
