@@ -24,7 +24,6 @@ const mapDispatch = (dispatch: Dispatch | ThunkDispatchTy) => ({
   ShowContextMenu: (position: { left: number; top: number}) => {(dispatch as Dispatch)(showContextMenuAction(position))},
   HideContextMenu: () => {(dispatch as Dispatch)(hideContextMenuAction())},
   RecordSnapshot: () => {(dispatch as ThunkDispatchTy)(recordSnapshot())}
-
 })
 
 export const connector = connect(mapState, mapDispatch)

@@ -34,9 +34,15 @@ class ToolBar extends React.Component<Props> {
     this.props.Redo()
   }
 
+  clearAllCanvas = () => {
+    this.props.clearAllComponent()
+    // 记录快照
+    this.props.RecordSnapshot()
+  }
+
 
   render () {
-    const { canvasStyle, clearAllComponent } = this.props
+    const { canvasStyle } = this.props
     return (
       <div className="toolbar">
         <Button onClick={this.undo}>撤销</Button>
@@ -45,7 +51,7 @@ class ToolBar extends React.Component<Props> {
         <input type="file" id="input" hidden />
         <Button>预览</Button>
         <Button>保存</Button>
-        <Button onClick={clearAllComponent}>清空画布</Button>
+        <Button onClick={this.clearAllCanvas}>清空画布</Button>
         <div className="canvas-config">
           <span>画布大小</span>
           <input type="text" value={canvasStyle.width} onChange={this.onChangeCanvasWidth} />

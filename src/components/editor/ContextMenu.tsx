@@ -17,11 +17,15 @@ class ContextMenu extends React.Component<Props> {
     pasteComponent.style.left += 10
     setCurrentComponent(pasteComponent)
     AddComponent(pasteComponent as componentTy)
+    // 记录快照
+    this.props.RecordSnapshot()
   }
 
   onDelete = () => {
     const {DeleteComponent, currentComponent} = this.props
     DeleteComponent(currentComponent as componentTy)
+    // 记录快照
+    this.props.RecordSnapshot()
   }
 
   render () {
