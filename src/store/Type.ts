@@ -1,7 +1,12 @@
-import { DefaultRootState } from 'react-redux'
-import {GlobalDataReducer, ComponentsDataReducer, CurrentComponentReducer} from './reducer/globalData'
 import {contextMenuDisplayReducer} from './reducer/contextMenu'
 import { componentTy } from './reducer/stateType'
+import {
+  GlobalDataReducer,
+  ComponentsDataReducer,
+  CurrentComponentReducer
+} from './reducer/globalData'
+import { SnapshotDataReducer } from './reducer/snapshotData'
+
 export interface canvasStyleInterface {
   width: string;
   height: string;
@@ -15,8 +20,24 @@ export interface globalDataAction {
 
 export interface componentDataAction {
   type: string;
-  component?: componentTy
+  component: componentTy
 }
+
+export interface componentDataClearAction {
+  type: string;
+}
+export interface setAllComponentAction {
+  type: string;
+  components: componentTy[]
+}
+
+export interface RecordSnapshotAction {
+  type: string;
+  snapshotIndex: number;
+  components: componentTy[]
+}
+
+export type componentDataActionTy = componentDataAction | componentDataClearAction | setAllComponentAction
 
 export interface currentComponentAction {
   type: string;
@@ -39,5 +60,6 @@ export interface Reducers {
   globalData: GlobalDataReducer,
   componentsData: ComponentsDataReducer,
   currentComponent: CurrentComponentReducer,
-  contextMenuDisplay: contextMenuDisplayReducer
+  contextMenuDisplay: contextMenuDisplayReducer,
+  snapshotData: SnapshotDataReducer,
 }

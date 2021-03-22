@@ -26,13 +26,21 @@ class ToolBar extends React.Component<Props> {
     changeCanvasStyle(canvasStyle)
   }
 
+  undo = () => {
+    this.props.Undo()
+  }
+
+  redo = () => {
+    this.props.Redo()
+  }
+
 
   render () {
     const { canvasStyle, clearAllComponent } = this.props
     return (
       <div className="toolbar">
-        <Button>撤销</Button>
-        <Button>重做</Button>
+        <Button onClick={this.undo}>撤销</Button>
+        <Button onClick={this.redo}>重做</Button>
         <label htmlFor="input" className="insert">插入图片</label>
         <input type="file" id="input" hidden />
         <Button>预览</Button>

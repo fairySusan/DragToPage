@@ -15,3 +15,11 @@ export const ShowContextMenu = 'ShowContextMenu'
 export const HideContextMenu = 'HideContextMenu'
 
 export const DeleteComponent = 'DeleteComponent'
+
+export const Undo = 'Undo'
+
+export const Redo = 'Redo'
+
+export const RecordSnapshot = 'RecordSnapshot'
+
+export const SetAllComponent = 'SetAllComponent'

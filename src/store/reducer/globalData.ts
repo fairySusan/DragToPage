@@ -6,13 +6,16 @@ import {
   SetCurrentComponentStyle,
   UpdateComponent,
   ClearAllComponent,
-  DeleteComponent
+  DeleteComponent,
+  SetAllComponent
 } from '../constant'
 import { 
   globalDataAction,
   canvasStyleInterface,
   componentDataAction,
-  currentComponentAction
+  currentComponentAction,
+  setAllComponentAction,
+  componentDataActionTy,
 } from '../Type'
 
 export const globalData = (
@@ -28,23 +31,30 @@ export const globalData = (
     }
 }
 
-export const componentsData = (state: componentTy[] = [], action:componentDataAction) => {
+export const componentsData = (state: componentTy[] = [], action: componentDataActionTy) => {
   switch (action.type) {
     case AddComponent: 
-      if (action.component) {
-        return [action.component,...state]
+      if ((action as componentDataAction).component) {
+        return [(action as componentDataAction).component,...state]
       }
       return [...state]
+
     case UpdateComponent:
-      const i =state.findIndex((item) => item.id === (action.component as componentTy).id)
-      state[i] = action.component as componentTy
+      const i =state.findIndex((item) => item.id === ((action as componentDataAction).component as componentTy).id)
+      state[i] = (action as componentDataAction).component as componentTy
       return [...state]
+
     case ClearAllComponent:
       return []
+
     case DeleteComponent:
-      const j =state.findIndex((item) => item.id === (action.component as componentTy).id)
+      const j =state.findIndex((item) => item.id === ((action as componentDataAction).component as componentTy).id)
       state.splice(j, 1)
       return [...state]
+
+    case SetAllComponent:
+      return (action as setAllComponentAction).components
+
     default:
       return state
   }
