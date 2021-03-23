@@ -3,7 +3,8 @@ import { componentTy } from './reducer/stateType'
 import {
   GlobalDataReducer,
   ComponentsDataReducer,
-  CurrentComponentReducer
+  CurrentComponentReducer,
+  CurrentComIndexReducer
 } from './reducer/globalData'
 import { SnapshotDataReducer } from './reducer/snapshotData'
 
@@ -36,6 +37,11 @@ export interface RecordSnapshotAction {
   components?: componentTy[]
 }
 
+export interface currentComponentIndexAction {
+  type: string;
+  currentComponentIndex: number
+}
+
 export type componentDataActionTy = componentDataAction | componentDataClearAction | setAllComponentAction
 
 export interface currentComponentAction {
@@ -61,4 +67,5 @@ export interface Reducers {
   currentComponent: CurrentComponentReducer,
   contextMenuDisplay: contextMenuDisplayReducer,
   snapshotData: SnapshotDataReducer,
+  currentComponentIndex: CurrentComIndexReducer
 }

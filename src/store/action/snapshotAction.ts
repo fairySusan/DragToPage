@@ -2,7 +2,7 @@ import { RecordSnapshot, Undo, Redo } from '../constant'
 import { Dispatch } from 'redux'
 import { setAllComponents } from '../action/componentAction'
 import { deepCopy } from 'src/utils/util'
-import { AppState } from '..'
+import { AppState } from '../index'
 
 
 export const recordSnapshot = () => {

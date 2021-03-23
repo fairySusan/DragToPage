@@ -1,5 +1,4 @@
 import React from 'react'
-import { componentTy } from 'src/store/reducer/stateType'
 interface Props {
   style: any;
   propValue: any

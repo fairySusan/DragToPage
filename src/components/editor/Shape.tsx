@@ -6,7 +6,8 @@ import { PropsFromRedux, connector } from './Type'
 interface Props extends PropsFromRedux {
   component: componentTy,
   active: boolean,
-  children: JSX.Element
+  children: JSX.Element,
+  componentIndex: number
 }
 
 interface State {
@@ -82,9 +83,12 @@ class Shape extends React.Component<Props, State> {
 
   // 实现设置当前选中的组件和移动组件
   handleMouseDownOnShape = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     const { component } = this.props
     const { style } = component
     this.props.setCurrentComponent(component)
+    this.props.setCurrentComIndex(this.props.componentIndex)
 
     const startY = e.clientY
     const startX = e.clientX

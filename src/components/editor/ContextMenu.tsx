@@ -28,6 +28,22 @@ class ContextMenu extends React.Component<Props> {
     this.props.RecordSnapshot()
   }
 
+  onUpLayer = () => {
+    this.props.UpLayer()
+  }
+
+  onDownLayer = () => {
+    this.props.DownLayer()
+  }
+
+  onUpTop = () => {
+    this.props.UpTop()
+  }
+
+  onDownBottom = () => {
+    this.props.DownBottom()
+  }
+
   render () {
     const { top:menuTop, left:menuLeft } = (this.props.contextMenu as {left: number; top: number; show: boolean})
     return (
@@ -39,10 +55,10 @@ class ContextMenu extends React.Component<Props> {
           <li onClick={this.onCopy}>复制</li>
           <li onClick={this.onDelete}>删除</li>
           <li>锁定</li>
-          <li>置顶</li>
-          <li>置底</li>
-          <li>上移</li>
-          <li>下移</li>
+          <li onClick={this.onUpTop}>置顶</li>
+          <li onClick={this.onDownBottom}>置底</li>
+          <li onClick={this.onUpLayer}>上移图层</li>
+          <li onClick={this.onDownLayer}>下移图层</li>
         </ul>
       </div>
     )

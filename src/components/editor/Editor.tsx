@@ -47,8 +47,9 @@ class Editor extends React.Component<Props> {
             const ChildCom = componentFactory(item.component, item)
             return (
               <Shape
-                key={item.id}
+                key={i}
                 component={item}
+                componentIndex={i}
                 active={item.id === currentComponent.id}
               >
                 <ChildCom></ChildCom>
