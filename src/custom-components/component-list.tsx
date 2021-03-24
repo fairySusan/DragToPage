@@ -35,7 +35,7 @@ const list = [
   {
     component: VButton, 
     label: '按钮', 
-    propValue: '按钮',
+    propValue: '按钮123',
     icon: <GatewayOutlined />,
     style: {
         width: 100,

@@ -1,10 +1,15 @@
 import React from 'react'
-import { Button } from 'antd'
 
-export default class VButton extends React.Component {
+interface Props {
+  style: any;
+  propValue: any
+}
+
+export default class VButton extends React.Component<Props> {
   render () {
+    const { style, propValue} = this.props
     return (
-      <Button>按钮</Button>
+      <button className="v-button" style={style}>{propValue}</button>
     )
   }
 }

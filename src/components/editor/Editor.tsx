@@ -52,7 +52,7 @@ class Editor extends React.Component<Props> {
                 componentIndex={i}
                 active={item.id === currentComponent.id}
               >
-                <ChildCom></ChildCom>
+                <ChildCom ></ChildCom>
               </Shape>
             )
           })

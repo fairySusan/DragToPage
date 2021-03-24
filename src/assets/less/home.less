@@ -1,38 +1,46 @@
 .home {
   height: 100vh;
-  background: #fff;
   main {
     height: calc(100% - 64px);
     position: relative;
+    display: flex;
+    justify-content: space-between;
     .left {
-      position: absolute;
       height: 100%;
-      width: 200px;
-      left: 0;
-      top: 0;
+      width: 10%;
+      // position: absolute;
+      // width: 200px;
+      // left: 0;
+      // top: 0;
+      flex: none;
       padding-top: 10px;
+      background-color: white;
     }
 
     .right {
-      position: absolute;
       height: 100%;
-      width: 262px;
-      right: 0;
-      top: 0;
+      width: 20%;
+      // position: absolute;
+      // width: 262px;
+      // right: 0;
+      // top: 0;
+      flex: none;
+      background-color: white;
     }
 
     .center {
-      margin-left: 200px;
-      margin-right: 262px;
+      // margin-left: 200px;
+      // margin-right: 262px;
       background: #f5f5f5;
       height: 100%;
       overflow: auto;
       padding: 20px;
-
+      position: relative;
       .content {
         width: 100%;
         height: 100%;
         overflow: auto;
+        position: relative;
       }
     }
   }
