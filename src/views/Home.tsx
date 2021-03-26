@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import ToolBar from 'src/components/ToolBar'
 import Editor from 'src/components/editor/Editor'
 import ComponentList from 'src/components/componentList'
+import AttrList from 'src/components/attrList'
 import componentList from 'src/custom-components/component-list'
 import { deepCopy } from 'src/utils/util'
 import generateID from 'src/utils/generateID'
@@ -62,7 +63,7 @@ class Home extends React.Component<Props> {
           <section className="right">
             <Tabs defaultActiveKey="1">
               <TabPane tab="属性" key="1">
-                Content of Tab Pane 1
+                <AttrList />
               </TabPane>
               <TabPane tab="动画" key="2">
                 Content of Tab Pane 2

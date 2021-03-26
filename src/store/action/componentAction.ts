@@ -27,7 +27,7 @@ export const setCurrentComponentStyle = (component: componentTy) => {
   return {type: SetCurrentComponentStyle, component}
 }
 
-export const setCurrComponentSingleStyle = (key: string, value: number) => {
+export const setCurrComponentSingleStyle = (key: string, value: number | string) => {
   return {type: SetCurrComSingleStyle, key, value}
 }
 
