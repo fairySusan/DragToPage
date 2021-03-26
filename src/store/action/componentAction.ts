@@ -7,7 +7,8 @@ import {
   ClearAllComponent,
   DeleteComponent,
   SetAllComponent,
-  SetCurrentComponentIndex
+  SetCurrentComponentIndex,
+  SetCurrComSingleStyle
 } from '../constant'
 
 export const addComponent = (component: componentTy) => {
@@ -24,6 +25,10 @@ export const setCurrentComponent = (component: componentTy) => {
 
 export const setCurrentComponentStyle = (component: componentTy) => {
   return {type: SetCurrentComponentStyle, component}
+}
+
+export const setCurrComponentSingleStyle = (key: string, value: number) => {
+  return {type: SetCurrComSingleStyle, key, value}
 }
 
 export const clearAllComponent = () => {

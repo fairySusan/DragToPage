@@ -44,10 +44,19 @@ export interface currentComponentIndexAction {
 
 export type componentDataActionTy = componentDataAction | componentDataClearAction | setAllComponentAction
 
+
 export interface currentComponentAction {
   type: string;
   component: componentTy
 }
+
+export interface currComponentSingleAction {
+  type: string;
+  key: string;
+  value: number
+}
+
+export type currentComponentActionTy = currentComponentAction | currComponentSingleAction
 
 export interface showContextMenuAction {
   type: string;

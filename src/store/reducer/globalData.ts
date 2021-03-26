@@ -8,7 +8,8 @@ import {
   ClearAllComponent,
   DeleteComponent,
   SetAllComponent,
-  SetCurrentComponentIndex
+  SetCurrentComponentIndex,
+  SetCurrComSingleStyle
 } from '../constant'
 import { 
   globalDataAction,
@@ -17,7 +18,9 @@ import {
   currentComponentAction,
   setAllComponentAction,
   componentDataActionTy,
-  currentComponentIndexAction
+  currentComponentIndexAction,
+  currentComponentActionTy,
+  currComponentSingleAction
 } from '../Type'
 
 export const globalData = (
@@ -62,12 +65,15 @@ export const componentsData = (state: componentTy[] = [], action: componentDataA
   }
 }
 
-export const currentComponent = (state: componentTy | {id: -1} = {id: -1}, action: currentComponentAction) => {
+export const currentComponent = (state: componentTy | {id: -1} = {id: -1}, action: currentComponentActionTy) => {
   switch (action.type) {
     case SetCurrentComponent:
-      return action.component
+      return (action as currentComponentAction).component
     case SetCurrentComponentStyle:
-      return { ...action.component }
+      return { ...(action as currentComponentAction).component }
+    case SetCurrComSingleStyle:
+      (state as componentTy).style[(action as currComponentSingleAction).key] = (action as currComponentSingleAction).value
+      return { ...state }
     default:
       return state
   }

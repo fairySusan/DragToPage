@@ -5,6 +5,7 @@ import { componentFactory } from 'src/components/componentFactory'
 import GridLine from './GridLine'
 import Shape from './Shape'
 import ContextMenu from './ContextMenu'
+import MarkLine from './MarkLine'
 
 interface Props extends PropsFromRedux {
 }
@@ -61,6 +62,8 @@ class Editor extends React.Component<Props> {
         {
           contextMenu.show && <ContextMenu/>
         }
+
+        <MarkLine />
       </div>
     )
   }

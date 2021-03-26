@@ -2,11 +2,19 @@ import { connect, ConnectedProps } from 'react-redux'
 import { Dispatch, Action} from 'redux'
 import { AppState } from 'src/store'
 import { ThunkDispatch } from 'redux-thunk'
-import { setCurrentComponent, setCurrentComponentIndex , updateComponent, addComponent, deleteComponent } from 'src/store/action/componentAction'
 import { showContextMenuAction, hideContextMenuAction } from 'src/store/action/contextMenuAction'
 import { componentTy } from 'src/store/reducer/stateType'
 import { recordSnapshot } from 'src/store/action/snapshotAction'
 import { upLayer, downLayer, upTop, downBottom } from 'src/store/action/layerAction'
+import {
+  setCurrentComponent,
+  setCurrentComponentIndex ,
+  updateComponent,
+  addComponent,
+  deleteComponent,
+  setCurrComponentSingleStyle
+} from 'src/store/action/componentAction'
+
 
 const mapState = (state: AppState) => ({
   canvasStyle: state.globalData,
@@ -29,7 +37,8 @@ const mapDispatch = (dispatch: Dispatch | ThunkDispatchTy) => ({
   UpLayer: () => {(dispatch as ThunkDispatchTy)(upLayer())},
   DownLayer: () => {(dispatch as ThunkDispatchTy)(downLayer())},
   UpTop: () => {(dispatch as ThunkDispatchTy)(upTop())},
-  DownBottom: () => {(dispatch as ThunkDispatchTy)(downBottom())}
+  DownBottom: () => {(dispatch as ThunkDispatchTy)(downBottom())},
+  SetCurrComponentSingleStyle: (key: string, value: number) => {(dispatch as Dispatch)(setCurrComponentSingleStyle(key, value))}
 })
 
 export const connector = connect(mapState, mapDispatch)
