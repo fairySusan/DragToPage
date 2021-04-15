@@ -5,6 +5,7 @@ import { componentFactory } from 'src/components/componentFactory'
 import GridLine from './GridLine'
 import Shape from './Shape'
 import ContextMenu from './ContextMenu'
+import MarkLine from './MarkLine'
 
 interface Props extends PropsFromRedux {
 }
@@ -47,11 +48,12 @@ class Editor extends React.Component<Props> {
             const ChildCom = componentFactory(item.component, item)
             return (
               <Shape
-                key={item.id}
+                key={i}
                 component={item}
+                componentIndex={i}
                 active={item.id === currentComponent.id}
               >
-                <ChildCom></ChildCom>
+                <ChildCom ></ChildCom>
               </Shape>
             )
           })
@@ -60,6 +62,8 @@ class Editor extends React.Component<Props> {
         {
           contextMenu.show && <ContextMenu/>
         }
+
+        <MarkLine />
       </div>
     )
   }

@@ -1,8 +1,6 @@
 import { componentTy } from './stateType'
 import { Undo, Redo, RecordSnapshot } from '../constant'
-import { store } from '../index'
 import { deepCopy } from 'src/utils/util'
-import { setAllComponents } from '../action/componentAction'
 import { RecordSnapshotAction } from '../Type'
 
 interface SnapshotState {
@@ -18,24 +16,15 @@ const initState = {
 export const snapshotData = (state: SnapshotState = initState, action: RecordSnapshotAction) => {
   switch (action.type) {
     case RecordSnapshot:
-      state.components[++action.snapshotIndex] = deepCopy(action.components)
+      state.components[++state.snapshotIndex] = deepCopy(action.components)
       return { ...state }
+    
     case Undo:
-      if (state.components.length > 0) {
-        const { components, snapshotIndex } = state
-        const i = snapshotIndex - 1
-        store.dispatch(setAllComponents(deepCopy(components[i])))
-        return { snapshotIndex: i, components: state.components }
-      }
-      return state
+      return { snapshotIndex: state.snapshotIndex - 1, components: state.components }
     case Redo:
       const {components, snapshotIndex} = state
-      if (snapshotIndex < state.components.length - 1) {
-        const i = snapshotIndex + 1
-        store.dispatch(setAllComponents(deepCopy(components[i])))
-        return { snapshotIndex: i,  components: state.components}
-      }
-      return state
+      return { snapshotIndex: snapshotIndex + 1,  components: components}
+
     default:
       return state
 

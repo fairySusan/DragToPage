@@ -23,3 +23,7 @@ export const Redo = 'Redo'
 export const RecordSnapshot = 'RecordSnapshot'
 
 export const SetAllComponent = 'SetAllComponent'
+
+export const SetCurrentComponentIndex = 'SetCurrentComponentIndex'
+
+export const SetCurrComSingleStyle = 'SetCurrComSingleStyle'

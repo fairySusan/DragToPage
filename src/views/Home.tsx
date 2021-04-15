@@ -3,8 +3,8 @@ import { Tabs } from 'antd';
 import ToolBar from 'src/components/ToolBar'
 import Editor from 'src/components/editor/Editor'
 import ComponentList from 'src/components/componentList'
+import AttrList from 'src/components/attrList'
 import componentList from 'src/custom-components/component-list'
-import { componentTy } from 'src/store/reducer/stateType'
 import { deepCopy } from 'src/utils/util'
 import generateID from 'src/utils/generateID'
 import { connector, PropsFromRedux } from './Type'
@@ -25,6 +25,8 @@ class Home extends React.Component<Props> {
     component.style.left = e.nativeEvent.offsetX
     component.id = generateID()
     this.props.addComponent(component)
+    // 记录快照
+    this.props.RecordSnapshot()
   }
 
   handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -61,7 +63,7 @@ class Home extends React.Component<Props> {
           <section className="right">
             <Tabs defaultActiveKey="1">
               <TabPane tab="属性" key="1">
-                Content of Tab Pane 1
+                <AttrList />
               </TabPane>
               <TabPane tab="动画" key="2">
                 Content of Tab Pane 2

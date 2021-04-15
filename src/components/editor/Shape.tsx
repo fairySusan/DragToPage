@@ -1,12 +1,14 @@
-import React, { MouseEventHandler } from'react'
+import React from 'react'
 import { RedoOutlined } from '@ant-design/icons'
 import { componentTy } from 'src/store/reducer/stateType'
 import { PropsFromRedux, connector } from './Type'
+import { EventUtil, EventKeys } from 'src/utils/eventUtil'
 
 interface Props extends PropsFromRedux {
   component: componentTy,
   active: boolean,
-  children: JSX.Element
+  children: JSX.Element,
+  componentIndex: number
 }
 
 interface State {
@@ -82,9 +84,12 @@ class Shape extends React.Component<Props, State> {
 
   // 实现设置当前选中的组件和移动组件
   handleMouseDownOnShape = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     const { component } = this.props
     const { style } = component
     this.props.setCurrentComponent(component)
+    this.props.setCurrentComIndex(this.props.componentIndex)
 
     const startY = e.clientY
     const startX = e.clientX
@@ -100,11 +105,20 @@ class Shape extends React.Component<Props, State> {
       style.left = curX - startX + startLeft
 
       this.props.UpdateComponent(component)
-      // 记录快照
-      this.props.RecordSnapshot()
+
+      // 触发元素移动事件，用于显示标线、吸附功能
+      // 后面两个参数代表鼠标移动方向
+      // curY - startY > 0 true 表示向下移动 false 表示向上移动
+      // curX - startX > 0 true 表示向右移动 false 表示向左移动
+      EventUtil.emit(EventKeys.move, curY - startY > 0, curX - startX > 0)
     }
 
     const up = () => {
+      // 记录快照
+      this.props.RecordSnapshot()
+
+      // 触发元素停止移动事件，用于隐藏标线
+      EventUtil.emit(EventKeys.unMove)
       document.removeEventListener('mousemove', move)
       document.removeEventListener('mouseup', up)
     }

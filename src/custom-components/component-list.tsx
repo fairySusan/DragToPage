@@ -1,5 +1,7 @@
 import { FontSizeOutlined, GatewayOutlined, FileImageOutlined, BorderOutlined } from '@ant-design/icons'
-import VText from 'src/custom-components/VText'
+import VText from './VText'
+import VButton from './VButton'
+import VImage from './VImage'
 // 公共样式
 export const commonStyle = {
   rotate: 0, 
@@ -26,32 +28,32 @@ const list = [
       fontWeight: 500,
       lineHeight: '',
       letterSpacing: 0,
-      textAlign: '',
-      color: '',
+      textAlign: 'left',
+      color: '#ff0000',
     },
   },
   {
-    component: VText, 
+    component: VButton, 
     label: '按钮', 
-    propValue: '按钮',
+    propValue: '按钮123',
     icon: <GatewayOutlined />,
     style: {
         width: 100,
         height: 34,
-        borderWidth: '',
-        borderColor: '',
-        borderRadius: '',
+        borderWidth: 1,
+        borderColor: '#ff0000',
+        borderRadius: 0,
         fontSize: 14,
         fontWeight: 500,
         lineHeight: '',
         letterSpacing: 0,
-        textAlign: '',
-        color: '',
-        backgroundColor: '',
+        textAlign: 'center',
+        color: '#000000',
+        backgroundColor: '#ffffff',
     },
   },
   {
-    component: VText, 
+    component: VImage, 
     label: '图片', 
     icon: <FileImageOutlined />,
     propValue: require('src/assets/img/title.jpg'),

@@ -1,10 +1,20 @@
 import { connect, ConnectedProps } from 'react-redux'
-import { Dispatch } from 'redux'
+import { Dispatch, Action} from 'redux'
 import { AppState } from 'src/store'
-import { setCurrentComponent, updateComponent, addComponent, deleteComponent } from 'src/store/action/componentAction'
+import { ThunkDispatch } from 'redux-thunk'
 import { showContextMenuAction, hideContextMenuAction } from 'src/store/action/contextMenuAction'
 import { componentTy } from 'src/store/reducer/stateType'
-import { recordSnapshot, redo, undo } from 'src/store/action/snapshotAction'
+import { recordSnapshot } from 'src/store/action/snapshotAction'
+import { upLayer, downLayer, upTop, downBottom } from 'src/store/action/layerAction'
+import {
+  setCurrentComponent,
+  setCurrentComponentIndex ,
+  updateComponent,
+  addComponent,
+  deleteComponent,
+  setCurrComponentSingleStyle
+} from 'src/store/action/componentAction'
+
 
 const mapState = (state: AppState) => ({
   canvasStyle: state.globalData,
@@ -13,15 +23,22 @@ const mapState = (state: AppState) => ({
   contextMenu: state.contextMenuDisplay
 })
 
-const mapDispatch = (dispatch: Dispatch) => ({
-  setCurrentComponent: (component: componentTy) => {dispatch(setCurrentComponent(component))},
-  UpdateComponent: (component: componentTy) => {dispatch(updateComponent(component))},
-  AddComponent: (component: componentTy) => {dispatch(addComponent(component))},
-  DeleteComponent: (component: componentTy) => {dispatch(deleteComponent(component))},
-  ShowContextMenu: (position: { left: number; top: number}) => {dispatch(showContextMenuAction(position))},
-  HideContextMenu: () => { dispatch(hideContextMenuAction())},
-  RecordSnapshot: () => {dispatch(recordSnapshot())}
+type ThunkDispatchTy = ThunkDispatch<AppState, void, Action>
 
+const mapDispatch = (dispatch: Dispatch | ThunkDispatchTy) => ({
+  setCurrentComponent: (component: componentTy) => {(dispatch as Dispatch)(setCurrentComponent(component))},
+  setCurrentComIndex: (index: number) => {(dispatch as Dispatch)(setCurrentComponentIndex(index))},
+  UpdateComponent: (component: componentTy) => {(dispatch as Dispatch)(updateComponent(component))},
+  AddComponent: (component: componentTy) => {(dispatch as Dispatch)(addComponent(component))},
+  DeleteComponent: (component: componentTy) => {(dispatch as Dispatch)(deleteComponent(component))},
+  ShowContextMenu: (position: { left: number; top: number}) => {(dispatch as Dispatch)(showContextMenuAction(position))},
+  HideContextMenu: () => {(dispatch as Dispatch)(hideContextMenuAction())},
+  RecordSnapshot: () => {(dispatch as ThunkDispatchTy)(recordSnapshot())},
+  UpLayer: () => {(dispatch as ThunkDispatchTy)(upLayer())},
+  DownLayer: () => {(dispatch as ThunkDispatchTy)(downLayer())},
+  UpTop: () => {(dispatch as ThunkDispatchTy)(upTop())},
+  DownBottom: () => {(dispatch as ThunkDispatchTy)(downBottom())},
+  SetCurrComponentSingleStyle: (key: string, value: number) => {(dispatch as Dispatch)(setCurrComponentSingleStyle(key, value))}
 })
 
 export const connector = connect(mapState, mapDispatch)

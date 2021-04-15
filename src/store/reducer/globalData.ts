@@ -7,7 +7,9 @@ import {
   UpdateComponent,
   ClearAllComponent,
   DeleteComponent,
-  SetAllComponent
+  SetAllComponent,
+  SetCurrentComponentIndex,
+  SetCurrComSingleStyle
 } from '../constant'
 import { 
   globalDataAction,
@@ -16,6 +18,9 @@ import {
   currentComponentAction,
   setAllComponentAction,
   componentDataActionTy,
+  currentComponentIndexAction,
+  currentComponentActionTy,
+  currComponentSingleAction
 } from '../Type'
 
 export const globalData = (
@@ -60,12 +65,24 @@ export const componentsData = (state: componentTy[] = [], action: componentDataA
   }
 }
 
-export const currentComponent = (state: componentTy | {id: -1} = {id: -1}, action: currentComponentAction) => {
+export const currentComponent = (state: componentTy | {id: -1} = {id: -1}, action: currentComponentActionTy) => {
   switch (action.type) {
     case SetCurrentComponent:
-      return action.component
+      return (action as currentComponentAction).component
     case SetCurrentComponentStyle:
-      return { ...action.component }
+      return { ...(action as currentComponentAction).component }
+    case SetCurrComSingleStyle:
+      (state as componentTy).style[(action as currComponentSingleAction).key] = (action as currComponentSingleAction).value
+      return { ...state }
+    default:
+      return state
+  }
+}
+
+export const currentComponentIndex = (state = -1, action: currentComponentIndexAction) => {
+  switch (action.type) {
+    case SetCurrentComponentIndex:
+      return action.currentComponentIndex
     default:
       return state
   }
@@ -76,3 +93,5 @@ export type GlobalDataReducer = ReturnType<typeof globalData>
 export type ComponentsDataReducer = ReturnType<typeof componentsData>
 
 export type CurrentComponentReducer =  ReturnType<typeof currentComponent>
+
+export type CurrentComIndexReducer = ReturnType<typeof currentComponentIndex>
